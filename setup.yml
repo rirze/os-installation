@@ -42,6 +42,11 @@
       - "deb https://apache.bintray.com/couchdb-deb {{ distribution }} main"
       - "deb http://repository.spotify.com stable non-free"
 
+  - name: add Microsoft key and feed
+    apt:
+      deb: "https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb"
+      state: present
+
   - name: add specific repository into files
     apt_repository:
       repo: "{{ item.src }}"
@@ -62,7 +67,6 @@
       state: present
     with_items:
       - "https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb"
-      - "https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb"
       - "https://discordapp.com/api/download?platform=linux&format=deb"
 
   - name: install packages
