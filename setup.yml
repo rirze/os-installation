@@ -24,6 +24,13 @@
     with_items:
       - "https://couchdb.apache.org/repo/bintray-pubkey.asc"
 
+  - name: add apt-keys from keyservers
+    apt_key:
+      keyserver: "{{ item.keyserver }}"
+      id: "{{ item.id }}"
+    with_items:
+      - { keyserver: "hkp://keyserver.ubuntu.com:80", id: "931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90" }
+
   - name: add repositories
     apt_repository:
       repo: "{{ item }}"
@@ -33,13 +40,6 @@
       - "ppa:kelleyk/emacs"
       - "deb https://apache.bintray.com/couchdb-deb {{ distribution }} main"
       - "http://repository.spotify.com stable non-free"
-
-  - name: add apt-keys
-    apt_key:
-      keyserver: "{{ item.keyserver }}"
-      id: "{{ item.id }}"
-    with_items:
-      - { keyserver: "hkp://keyserver.ubuntu.com:80", id: "931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90" }
 
   - name: add specific repository into files
     apt_repository:
