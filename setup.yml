@@ -72,7 +72,6 @@
   - name: install packages
     apt:
       update_cache: yes
-      upgrade: dist
       state: present
       name:
         - emacs26
@@ -161,3 +160,8 @@
       name: emacs
       enable: yes
       state: started
+
+  - name: upgrade all packages
+    apt:
+      update_cache: yes
+      upgrade: dist
