@@ -91,15 +91,13 @@
         - libgtk-3-dev
         - dbus-x11
         - python-pip
-        - python-pip3
+        - python3-pip
         - sshpass
         - silversearcher-ag
+        - x11-xserver-utils
         - xsel
         - figlet
-        - xset
         - firefox
-        - autopep8
-        - git-grep
         - tree
         - ipython3
         - python-pep8
@@ -126,6 +124,7 @@
       executable: pip3
       name:
       - astropy
+      - autopep8
       - black
       - epc
       - flake8
