@@ -75,7 +75,6 @@
       state: present
       name:
         - emacs26
-        - gnutls
         - gnutls-bin
         - pkg-config
         - build-essential
