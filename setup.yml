@@ -39,7 +39,7 @@
       - "ppa:apt-fast/stable"
       - "ppa:kelleyk/emacs"
       - "deb https://apache.bintray.com/couchdb-deb {{ distribution }} main"
-      - "http://repository.spotify.com stable non-free"
+      - "deb http://repository.spotify.com stable non-free"
 
   - name: add specific repository into files
     apt_repository:
