@@ -17,6 +17,13 @@
       - "echo debconf apt-fast/dlflag boolean true | sudo debconf-set-selections"
       - "echo debconf apt-fast/aptmanager string apt-get | sudo debconf-set-selections"
 
+  - name: add apt signing keys
+    apt_key:
+      url: "{{ item }}"
+      state: present
+    with_items:
+      - "https://couchdb.apache.org/repo/bintray-pubkey.asc"
+
   - name: add repositories
     apt_repository:
       repo: "{{ item }}"
