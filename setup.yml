@@ -22,14 +22,6 @@
       repo: "{{ item }}"
       state: present
     with_items:
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distribution }} universe"
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distribution }}-updates universe"
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distribution }} multiverse"
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distribution }}-updates multiverse"
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distribution }}-backports main restricted universe multiverse"
-      - "deb http://archive.canonical.com/ubuntu {{ distribution }} partner"
-      - "deb http://security.ubuntu.com/ubuntu/ {{ distribution }}-security universe"
-      - "deb http://security.ubuntu.com/ubuntu/ {{ distribution }}-security multiverse"
       - "ppa:apt-fast/stable"
       - "ppa:kelleyk/emacs"
       - "deb https://apache.bintray.com/couchdb-deb {{ distribution }} main"
