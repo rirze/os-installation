@@ -1,0 +1,12 @@
+---
+- name: install nu dependencies
+  apt:
+    name:
+      - pkg-config
+      - libssl-dev
+      - libxcb-composite0-dev
+      - libx11-dev
+
+- name: install nu
+  shell: "/home/{{ ansible_user }}/.cargo/bin/cargo +nightly install nu --all-features"
+  become: no

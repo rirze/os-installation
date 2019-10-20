@@ -1,0 +1,36 @@
+---
+
+- name: install deps
+  apt:
+    name:
+      - build-essential
+      - automake
+      - clang
+      - libclang-dev
+      - libxt-dev
+    state: present
+
+- name: download remacs repo
+  git:
+    repo: "https://github.com/remacs/remacs"
+    dest: "/home/{{ ansible_user }}/cart/remacs"
+  become: no
+
+- name: autogen remacs
+  shell: ./autogen
+  args:
+    chdir: "/home/{{ ansible_user }}/cart/remacs"
+  become: no
+
+
+- name: configure remacs
+  shell: ./configure --enable-rust-debug
+  args:
+    chdir: "/home/{{ ansible_user }}/cart/remacs"
+  become: no
+
+
+- name: make remacs
+  make:
+    chdir: "/home/{{ ansible_user }}/cart/remacs"
+  become: no

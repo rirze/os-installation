@@ -1,0 +1,22 @@
+# - name: add fasd repo
+#   apt_repository:
+#     repo: "ppa:aacebedo/fasd"
+#     state: present
+
+# - name: install fasd
+#   apt:
+#     update_cache: yes
+#     name: fasd
+#     state: present
+
+
+- name: download fasd from git repo
+  git:
+    repo: "https://github.com/clvv/fasd"
+    dest: "/home/{{ ansible_user }}/cart/fasd"
+  become: no
+
+- name: make fasd
+  make:
+    chdir: "/home/{{ ansible_user }}/cart/fasd"
+    target: install

@@ -11,6 +11,40 @@
 
   tasks:
 
+  - name: setup and install osquery
+    include: osquery.yml
+    tags:
+      - osquery
+
+  - name: install rustup and nightly rust
+    include: rustup.yml
+    tags:
+      - rust
+      - rustup
+
+  - name: install nushell
+    include: nushell.yml
+    tags:
+      - rust
+      - nu
+
+  - name: setup rust for emacs
+    include: emacs_rust.yml
+    tags:
+      - rust
+      - emacs
+
+  - name: install remacs
+    include: remacs.yml
+    tags:
+      - rust
+      - remacs
+
+  - name: install fasd
+    include: fasd.yml
+    tags:
+      - fasd
+
   - name: set apt-fast config
     command: "{{ item }}"
     with_items:
@@ -24,6 +58,7 @@
       state: present
     with_items:
       - "https://couchdb.apache.org/repo/bintray-pubkey.asc"
+      - "https://download.spotify.com/debian/pubkey.gpg"
 
   - name: add apt-keys from keyservers
     apt_key:
@@ -54,6 +89,8 @@
       filename: "{{ item.file }}"
     with_items:
       - { src: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main', file: vscode.list }
+    tags:
+      - temp
 
   - name: install apt-fast
     apt:
@@ -117,7 +154,7 @@
         - dotnet-sdk-2.2
         - spotify-client
         - steam
-
+        - apt-file
 
   - name: install python packages
     pip:
@@ -146,17 +183,27 @@
   - name: install strans from dotnet
     command: dotnet tool install -g strans
     args:
-      creates: "~/.dotnet/tools/strans"
+      creates: "/home/{{ ansible_user }}/.dotnet/tools/strans"
+    become: no
 
   - name: link strans to local bin directory
-    command: ln -s ~/.dotnet/tools/strans ~/bin/strans
-    args:
-      creates: "~/bin/strans"
+    file:
+      src: "/home/{{ ansible_user }}/.dotnet/tools/strans"
+      dest: "/home/{{ ansible_user }}/bin/strans"
+      state: link
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: 0755
 
-  - name: create emacs service
-    systemd:
+  - name: copy emacs service to systemd directory
+    copy:
+      src: "/home/{{ ansible_user }}/.emacs.d/emacs.service"
+      dest: "/etc/systemd/system/emacs.service"
+
+  - name: enable emacs service
+    service:
       name: emacs
-      enable: yes
+      enabled: yes
       state: started
 
   - name: upgrade all packages

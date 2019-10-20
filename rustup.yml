@@ -1,0 +1,10 @@
+---
+- name: install rustup
+  shell: "bash <(curl https://sh.rustup.rs -sSf) -y"
+  args:
+    executable: /bin/bash
+  become: no
+
+- name: install nightly rust
+  shell: "/home/{{ ansible_user }}/.cargo/bin/rustup install nightly"
+  become: no

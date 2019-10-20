@@ -1,0 +1,17 @@
+---
+
+- name: add apt-key
+  apt_key:
+    keyserver: "keyserver.ubuntu.com"
+    id: "1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B"
+
+- name: add apt repository
+  apt_repository:
+    repo: 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+    state: present
+
+- name: install osquery
+  apt:
+    update_cache: yes
+    name: osquery
+    state: present

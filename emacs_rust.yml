@@ -1,0 +1,3 @@
+---
+- name: install clippy
+  shell: "/home/{{ ansible_user }}/.cargo/bin/rustup component add clippy"
