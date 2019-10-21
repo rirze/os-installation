@@ -1,0 +1,24 @@
+- name: install prereqs
+  apt:
+    update_cache: yes
+    name:
+      - lsb-release
+      - wget
+      - apt-transport-https
+    state: present
+
+- name: add riot apt signing keys
+  apt_key:
+    url: "https://packages.riot.im/debian/riot-im-archive-keyring.gpg"
+    keyring: "/usr/share/keyrings/riot-im-archive-keyring.gpg"
+
+- name: add repo
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/riot-im-archive-keyring.gpg] https://packages.riot.im/debian/ {{ distribution }} main"
+    state: present
+
+- name: install riot-web
+  apt:
+    update_cache: yes
+    name: riot-web
+    state: present

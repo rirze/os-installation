@@ -45,6 +45,12 @@
     tags:
       - fasd
 
+  - name: install riot-web
+    include: riot.yml
+    tags:
+      - riot
+      - matrix
+
   - name: set apt-fast config
     command: "{{ item }}"
     with_items:
