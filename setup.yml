@@ -10,6 +10,20 @@
     distribution: bionic
 
   tasks:
+  - name: text messages on boot
+    ini_file:
+      path: /etc/default/grub
+      section: null
+      option: GRUB_CMDLINE_LINUX_DEFAULT
+      value: "\"\""
+      no_extra_spaces: yes
+    tags:
+      - os
+
+  - name: rebuild grub2
+    shell: update-grub
+    tags:
+      - os
 
   - name: setup and install osquery
     include: osquery.yml
@@ -50,6 +64,11 @@
     tags:
       - riot
       - matrix
+
+  - name: install ssh-agent.service
+    include: ssh-agent.yml
+    tags:
+      - ssh-agent
 
   - name: set apt-fast config
     command: "{{ item }}"

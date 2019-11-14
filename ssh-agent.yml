@@ -1,0 +1,13 @@
+---
+- name: install ssh-agent under user systemd
+  copy:
+    src: "{{ playbook_dir }}/ssh-agent.service"
+    dest: "/etc/systemd/user/ssh-agent.service"
+
+- name: enable and start ssh-agent.service
+  systemd:
+    name: ssh-agent
+    state: started
+    scope: user
+    enabled: yes
+  become: no
